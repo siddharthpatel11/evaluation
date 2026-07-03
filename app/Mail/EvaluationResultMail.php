@@ -23,35 +23,10 @@ class EvaluationResultMail extends Mailable
 
     public function envelope(): Envelope
     {
-        $scoreRatio = $this->submission->max_marks > 0
-            ? ($this->submission->marks_obtained / $this->submission->max_marks) * 10
-            : 0;
-
-        $subject = 'Your Evaluation Result';
-
-        if ($scoreRatio >= 10) {
-            $subject = '🏆 Perfect Score! You Are a Champion!';
-        } elseif ($scoreRatio >= 9) {
-            $subject = 'Outstanding Performance! 🌟';
-        } elseif ($scoreRatio >= 8) {
-            $subject = 'Very Good Job! 👏';
-        } elseif ($scoreRatio >= 7) {
-            $subject = 'Good Effort! 👍';
-        } elseif ($scoreRatio >= 6) {
-            $subject = 'You Can Do Better! 💪';
-        } elseif ($scoreRatio >= 5) {
-            $subject = 'Keep Trying! 📈';
-        } elseif ($scoreRatio >= 4) {
-            $subject = 'Don\'t Give Up! 🤝';
-        } elseif ($scoreRatio >= 3) {
-            $subject = 'Let\'s Improve Together! 📚';
-        } elseif ($scoreRatio >= 2) {
-            $subject = 'We Are Here to Guide You! 🧭';
-        } elseif ($scoreRatio >= 1) {
-            $subject = 'Stay Motivated! 💡';
-        } else {
-            $subject = 'We Support You! ❤️';
-        }
+        $name = $this->submission->name ?? 'Candidate';
+        $monthYear = now()->format('F Y');
+        
+        $subject = "Internship Evaluation Process and Next Steps | {$name} | {$monthYear}";
 
         return new Envelope(
             subject: $subject,
