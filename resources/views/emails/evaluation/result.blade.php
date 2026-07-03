@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -204,7 +205,7 @@
             border-left-color: #ef4444;
             background-color: #fef2f2;
         }
-        
+
         .status-title {
             font-weight: 700;
             margin-bottom: 5px;
@@ -232,13 +233,14 @@
         }
     </style>
 </head>
+
 <body>
     <div class="email-wrapper">
         <div class="container">
             <div class="header">
                 <h1>Excelsior Technologies</h1>
             </div>
-            
+
             <div class="date-text">
                 {{ now()->timezone('Asia/Kolkata')->format('D, d M Y g:i:s A O') }}
             </div>
@@ -246,44 +248,64 @@
             <div class="content">
                 <div class="greeting">Dear {{ $submission->name ?? 'Candidate' }},</div>
 
-                <p>Greetings from Excelsior Technologies.</p>
+                <p>Greetings from <strong>Excelsior Technologies</strong>.</p>
 
-                <p>As discussed earlier, and as you are already aware, clearing the evaluation process is a mandatory requirement to commence the internship. This evaluation is conducted to assess the skills gained during the training phase, ensuring that live project work can be handled efficiently, within defined timelines, and in alignment with required quality standards.</p>
+                <p>As discussed earlier, and as you are already aware, clearing the evaluation process is a mandatory
+                    requirement to commence the internship. This evaluation is conducted to assess the skills gained
+                    during the training phase, ensuring that live project work can be handled efficiently, within
+                    defined timelines, and in alignment with required quality standards.</p>
 
-                <p>The evaluation may be requested either during the training period or after the completion of training, once you feel confident about your domain knowledge and clarity of basic concepts.</p>
+                <p>The evaluation may be requested either <strong>during the training period or after the completion of
+                        training</strong>, once you feel confident about your domain knowledge and clarity of basic
+                    concepts.</p>
 
-                <p>As per the evaluation criteria, a minimum score of 70–80% is required to qualify for the internship.</p>
+                <p>As per the evaluation criteria, a minimum score of <strong>70–80%</strong> is required to qualify for
+                    the internship.</p>
 
                 @php
-                    $percentage = isset($submission) && $submission->max_marks > 0 
-                        ? round(($submission->marks_obtained / $submission->max_marks) * 100) 
-                        : 0;
-                    
+                    $percentage =
+                        isset($submission) && $submission->max_marks > 0
+                            ? round(($submission->marks_obtained / $submission->max_marks) * 100)
+                            : 0;
+
                     // Fallback to calculate percentage if marks_obtained is provided as percentage already (just in case)
                     if (isset($submission) && $submission->max_marks == 100) {
                         $percentage = $submission->marks_obtained;
                     }
                 @endphp
 
-                @if(isset($status) && $status === 'Pass')
+                @if (isset($status) && $status === 'Pass')
                     <div class="highlight-box status-pass">
                         <span class="status-title">Evaluation Passed ({{ $percentage }}%)</span>
-                        We are pleased to inform you that your recent assessment resulted in a qualifying score. Congratulations on successfully clearing the evaluation process! You are now eligible to commence your internship and begin working on live projects.
+                        We are pleased to inform you that your recent assessment resulted in a qualifying score.
+                        Congratulations on successfully clearing the evaluation process! You are now eligible to
+                        commence your internship and begin working on live projects.
                     </div>
-                    
-                    <p>We wish you the best in your internship and look forward to your continued growth and performance.</p>
+
+                    <p>We wish you the best in your internship and look forward to your continued growth and
+                        performance.</p>
                 @else
                     <div class="highlight-box status-fail">
                         <span class="status-title">Evaluation On Hold ({{ $percentage }}%)</span>
-                        However, your recent assessment resulted in a score of {{ $percentage }}%@if(isset($submission) && $submission->marks_obtained == 0) due to the use of AI during the evaluation, which was strictly prohibited as per the assessment guidelines.@else, which does not meet the minimum required criteria.@endif
+                        However, your recent assessment resulted in a score of @if (isset($submission) && $submission->marks_obtained == 0)
+                            <strong>{{ $percentage }}% due to the use of AI during the evaluation</strong>, which was
+                            strictly prohibited as per the assessment guidelines.@else{{ $percentage }}%, which does
+                            not meet the minimum required criteria.
+                        @endif
                     </div>
-                    
-                    <p>As a result, your evaluation process has been placed on hold. You will not be eligible to request or appear for a re-evaluation for a period of 15 days from the date of this communication. After the completion of this period, you may request a re-evaluation once you have adequately prepared and are confident in your understanding of the subject matter.</p>
-                    
-                    <p>We wish you the best in your preparation and look forward to your improved performance in the next evaluation.</p>
+
+                    <p>As a result, your evaluation process has been placed on hold. <strong>You will not be eligible to
+                            request or appear for a re-evaluation for a period of 15 days from the date of this
+                            communication.</strong> After the completion of this period, you may request a re-evaluation
+                        once you have adequately prepared and are confident in your understanding of the subject matter.
+                    </p>
+
+                    <p>We wish you the best in your preparation and look forward to your improved performance in the
+                        next evaluation.</p>
                 @endif
 
-                <p>For any concerns, or if you would like to discuss the evaluation in detail, you may connect with us via Microsoft Teams or WhatsApp.</p>
+                <p>For any concerns, or if you would like to discuss the evaluation in detail, you may connect with us
+                    via <strong>Microsoft Teams</strong> or <strong>WhatsApp</strong>.</p>
 
                 <!-- Submission Details -->
                 <div class="details-box">
@@ -331,10 +353,13 @@
                 <div class="score-container">
                     <div class="score-box">
                         <span class="score-label">Marks Obtained</span>
-                        <div class="score-value">{{ $submission->marks_obtained ?? 0 }} <span style="font-size:16px; color:#9ca3af;">/ {{ $submission->max_marks ?? 100 }}</span></div>
+                        <div class="score-value">{{ $submission->marks_obtained ?? 0 }} <span
+                                style="font-size:16px; color:#9ca3af;">/ {{ $submission->max_marks ?? 100 }}</span>
+                        </div>
                     </div>
                     <div>
-                        <span class="badge {{ isset($status) && $status === 'Pass' ? 'badge-pass' : 'badge-fail' }}">{{ $status ?? 'Fail' }}</span>
+                        <span
+                            class="badge {{ isset($status) && $status === 'Pass' ? 'badge-pass' : 'badge-fail' }}">{{ $status ?? 'Fail' }}</span>
                     </div>
                 </div>
             </div>
@@ -342,7 +367,7 @@
             <div class="footer">
                 <div>Best regards,</div>
                 <div class="signature">Excelsior Technologies</div>
-                
+
                 <div class="contact-info">
                     &copy; {{ date('Y') }} Excelsior Technologies. All rights reserved.<br>
                     This is an automated message, please do not reply.
@@ -351,4 +376,5 @@
         </div>
     </div>
 </body>
+
 </html>
