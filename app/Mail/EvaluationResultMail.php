@@ -39,7 +39,7 @@ class EvaluationResultMail extends Mailable
             ? ($this->submission->marks_obtained / $this->submission->max_marks) * 10
             : 0;
 
-        $status = $scoreRatio >= 5 ? 'Pass' : 'Fail';
+        $status = $scoreRatio >= 7 ? 'Pass' : 'Fail';
 
         return new Content(
             view: 'emails.evaluation.result',
