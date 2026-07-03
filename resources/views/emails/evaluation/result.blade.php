@@ -74,10 +74,6 @@
         }
 
         .details-box {
-            background-color: #fafafa;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            padding: 25px;
             margin-top: 30px;
         }
 
@@ -140,12 +136,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #f9fafb;
-            border-radius: 8px;
-            padding: 20px 25px;
             margin-top: 30px;
-            border: 1px solid #e5e7eb;
-            border-left: 4px solid #2563eb;
         }
 
         .score-box {
@@ -309,14 +300,8 @@
 
                 <!-- Submission Details -->
                 <div class="details-box">
-                    <div class="details-title">Submission Details</div>
-                    <div class="detail-row">
-                        <span class="detail-label">Email Address</span>
-                        <span class="detail-value">{{ $submission->email ?? 'N/A' }}</span>
-                    </div>
-
                     @if (isset($submission) && $submission->description)
-                        <div class="detail-row" style="margin-top: 15px;">
+                        <div class="detail-row">
                             <span class="detail-label">Description</span>
                             <div class="detail-value" style="font-weight: normal; margin-top: 5px;">
                                 {!! $submission->description !!}
@@ -325,7 +310,7 @@
                     @endif
 
                     @if (isset($submission) && !empty($submission->issues))
-                        <div class="detail-row" style="margin-top: 15px;">
+                        <div class="detail-row">
                             <span class="detail-label">Issues</span>
                             <div class="detail-value">
                                 <ul class="list-items">
@@ -338,7 +323,7 @@
                     @endif
 
                     @if (isset($submission) && !empty($submission->images))
-                        <div class="detail-row" style="margin-top: 15px;">
+                        <div class="detail-row" style="display: none;">
                             <span class="detail-label">Attachments</span>
                             <div class="detail-value" style="margin-top: 5px;">
                                 @foreach ($submission->images as $index => $imagePath)
